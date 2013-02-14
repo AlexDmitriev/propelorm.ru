@@ -1,20 +1,20 @@
 ---
 layout: documentation
-title: Documentation
+title: Документация
 ---
 
-# Documentation #
+# Документация #
 
  * [What's New in Propel 1.6](whats-new.html) Users of previous versions can check the changes here.
  * [Changelog](https://raw.github.com/propelorm/Propel/master/CHANGELOG) Updates in the 1.6 branch since the release of 1.6.0 stable.
  * [API Documentation](http://api.propelorm.org/) The generated API documentation.
 
-## Project Setup ##
+## 1# Настройка проекта ##
 
  * [Installing Propel](01-installation.html) Install Propel using Git, PEAR, or a tarball.
  * [Building A Project](02-buildtime.html) Generate a PHP model based on a XML schema
 
-## Propel Basics ##
+## 2# Основы Propel ##
 
 * [Basic CRUD](03-basic-crud.html) The basics of Propel C.R.U.D. (Create, Retrieve, Update, Delete) operations
 * [Relationships](04-relationships.html) Searching and manipulating data from related tables.
@@ -25,7 +25,7 @@ title: Documentation
 * [Inheritance](09-inheritance.html) Single Table Inheritance, Class Table Inheritance, and Concrete Table Inheritance come free with Propel.
 * [Migrations](10-migrations.html) Change the structure of the database without altering the data.
 
-## Reference ##
+## 3# Руководство ##
 
 * [XML Schema Format](../reference/schema.html) All the database, table, column and foreign key options explained
 * [Active Record Classes](../reference/active-record.html) Complete list of the methods of Active Record classes.
@@ -33,7 +33,7 @@ title: Documentation
 * [Build Properties](../reference/buildtime-configuration.html) Reference for the `build.properties` file (`propel.ini` in symfony).
 * [Runtime Configuration File](../reference/runtime-configuration.html) Reference for the `runtime-conf.xml` file.
 
-## Behaviors Reference ##
+## 4# Behaviors Reference ##
 
 * [`aggregate_column`](../behaviors/aggregate-column.html)
 * [`alternative_coding_standards`](../behaviors/alternative-coding-standards.html)
@@ -52,9 +52,9 @@ title: Documentation
 
 You can also look at [user contributed behaviors](../cookbook/user-contributed-behaviors.html).
 
-## Cookbook ##
+## 5# Рецепты ##
 
-### Common Tasks ###
+### 5.1# Общие задачи ###
 
 * [Additional SQL Files](../cookbook/adding-additional-sql-files.html) How to execute custom SQL statements at buildtime
 * [Advanced Column Types](../cookbook/working-with-advanced-column-types.html) How to work with BLOBs, serialized PHP objects, ENUM, and ARRAY column types.
@@ -74,13 +74,13 @@ You can also look at [user contributed behaviors](../cookbook/user-contributed-b
 * [Writing A Behavior](../cookbook/writing-behavior.html) How to write a custom behavior to reuse model code horizontally.
 * [Testing Your Behaviors](../cookbook/testing-your-behaviors.html) How to unit test your behaviors.
 
-### Working with symfony 1.4 ###
+### Работа с symfony 1.4 ###
 
 * [Using Propel as Default ORM](../cookbook/symfony1/init-a-Symfony-project-with-Propel-git-way.html) How to initialize a symfony project with Propel as default ORM - the git way.
 * [Using the `i18n` behavior](../cookbook/symfony1/how-to-use-old-SfPropelBehaviori18n-with-sf1.4.html) How to use Propel's `i18n` behavior with symfony 1.4.
 * [Using the legacy `symfony_i18n` behavior](../cookbook/symfony1/how-to-use-old-SfPropelBehaviori18n-with-sf1.4.html) How to use the old `SfPropelBehaviori18n` (a.k.a. `symfony_i18n`) with symfony 1.4.
 
-### Working with Symfony2 ###
+### Работа с Symfony2 ###
 
 * [Working with Symfony2 (Introduction)](../cookbook/symfony2/working-with-symfony2.html)
 * [Symfony2 And Propel In Real Life](../cookbook/symfony2/symfony2-and-propel-in-real-life.html)
@@ -89,8 +89,8 @@ You can also look at [user contributed behaviors](../cookbook/user-contributed-b
 * [Adding A New Behavior In Symfony2](../cookbook/symfony2/adding-a-new-behavior-in-symfony2.html)
 * [Testing](../cookbook/symfony2/testing.html)
 
-### Working with Silex ###
+### Работа с Silex ###
 
-* [Working with Silex](../cookbook/silex/working-with-silex.html)
+* [Работа с Silex](../cookbook/silex/working-with-silex.html)
 
 >**Tip**<br />This is the up-to-date documentation for the last Propel version. To access the old documentation, please visit [trac.propelorm.org](http://trac.propelorm.org).

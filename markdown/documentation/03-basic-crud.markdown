@@ -13,34 +13,29 @@ To add new data to the database, instantiate a Propel-generated object and then 
 
 But before saving it, you probably want to define the value for its columns. For that purpose, Propel has generated a `setXXX()` method for each of the columns of the table in the model object. So in its simplest form, inserting a new row looks like the following:
 
-{% highlight php %}
-<?php
-/* initialize Propel, etc. */
+    /* initialize Propel, etc. */
 
-$author = new Author();
-$author->setFirstName('Jane');
-$author->setLastName('Austen');
-$author->save();
-{% endhighlight %}
+    $author = new Author();
+    $author->setFirstName('Jane');
+    $author->setLastName('Austen');
+    $author->save();
 
 The column names used in the `setXXX()` methods correspond to the `phpName` attribute of the `<column>` tag in your schema, or to a CamelCase version of the column name if the `phpName` is not set.
 
 In the background, the call to `save()` results in the following SQL being executed on the database:
 
-{% highlight sql %}
-INSERT INTO author (first_name, last_name) VALUES ('Jane', 'Austen');
-{% endhighlight %}
+
+    INSERT INTO author (first_name, last_name) VALUES ('Jane', 'Austen');
+
 
 ## Reading Object Properties ##
 
 Propel maps the columns of a table into properties of the generated objects. For each property, you can use a generated getter to access it.
 
-{% highlight php %}
-<?php
-echo $author->getId();        // 1
-echo $author->getFirstName(); // 'Jane'
-echo $author->getLastName();  // 'Austen'
-{% endhighlight %}
+    <?php
+    echo $author->getId();        // 1
+    echo $author->getFirstName(); // 'Jane'
+    echo $author->getLastName();  // 'Austen'
 
 The `id` column was set automatically by the database, since the `schema.xml` defines it as an `autoIncrement` column. The value is very easy to retrieve once the object is saved: just call the getter on the column phpName.
 
@@ -48,11 +43,9 @@ These calls don't issue a database query, since the `Author` object is already l
 
 You can also export all the properties of an object by calling one of the following methods: `toArray()`, `toXML()`, `toYAML()`, `toJSON()`, `toCSV()`, and `__toString()`:
 
-{% highlight php %}
-<?php
-echo $author->toJSON();
-// {"Id":1,"FirstName":"Jane","LastName":"Austen"}
-{% endhighlight %}
+    <?php
+    echo $author->toJSON();
+    // {"Id":1,"FirstName":"Jane","LastName":"Austen"}
 
 >**Tip**<br />For each export method, Propel also provides an import method counterpart. So you can easily populate an object from an array using `fromArray()`, and from a string using any of `fromXML()`, `fromYAML()`, `fromJSON()`, and `fromCSV()`.
 
@@ -68,53 +61,44 @@ In Propel, you use the generated Query objects to retrieve existing rows from th
 
 The simplest way to retrieve a row from the database, is to use the generated `findPK()` method. It simply expects the value of the primary key of the row to be retrieved.
 
-{% highlight php %}
-<?php
-$q = new AuthorQuery();
-$firstAuthor = $q->findPK(1);
-// now $firstAuthor is an Author object, or NULL if no match was found.
-{% endhighlight %}
+    <?php
+    $q = new AuthorQuery();
+    $firstAuthor = $q->findPK(1);
+    // now $firstAuthor is an Author object, or NULL if no match was found.
 
 This issues a simple SELECT SQL query. For instance, for MySQL:
 
-{% highlight sql %}
-SELECT author.id, author.first_name, author.last_name
-FROM `author`
-WHERE author.id = 1
-LIMIT 1;
-{% endhighlight %}
+    SELECT author.id, author.first_name, author.last_name
+    FROM `author`
+    WHERE author.id = 1
+    LIMIT 1;
 
 When the primary key consists of more than one column, `findPK()` accepts multiple parameters, one for each primary key column.
 
 >**Tip**<br />Every generated Query objects offers a factory method called `create()`. This methods creates a new instance of the query, and allows you to write queries in a single line:
 
-{% highlight php %}
-<?php
-$firstAuthor = AuthorQuery::create()->findPK(1);
-{% endhighlight %}
+    <?php
+    $firstAuthor = AuthorQuery::create()->findPK(1);
 
 You can also select multiple objects based on their primary keys, by calling the generated `findPKs()` method. It takes an array of primary keys as a parameter:
 
-{% highlight php %}
-<?php
-$selectedAuthors = AuthorQuery::create()->findPKs(array(1,2,3,4,5,6,7));
-// $selectedAuthors is a collection of Author objects
-{% endhighlight %}
+    <?php
+    $selectedAuthors = AuthorQuery::create()->findPKs(array(1,2,3,4,5,6,7));
+    // $selectedAuthors is a collection of Author objects
 
 ### Querying the Database ###
 
 To retrieve rows other than by the primary key, use the Query `find()` method.
 
 An empty Query object carries no condition, and returns all the rows of the table
-{% highlight php %}
-<?php
-$authors = AuthorQuery::create()->find();
-// $authors contains a collection of Author objects
-// one object for every row of the author table
-foreach($authors as $author) {
-  echo $author->getFirstName();
-}
-{% endhighlight %}
+
+    <?php
+    $authors = AuthorQuery::create()->find();
+    // $authors contains a collection of Author objects
+    // one object for every row of the author table
+    foreach($authors as $author) {
+      echo $author->getFirstName();
+    }
 
 To add a simple condition on a given column, use one of the generated `filterByXXX()` methods of the Query object, where `XXX` is a column phpName. Since `filterByXXX()` methods return the current query object, you can continue to add conditions or end the query with the result of the method call. For instance, to filter by first name:
 
