@@ -69,8 +69,8 @@ $app->get('/', function() use ($app) {
     return $app['twig']->render('index.twig');
 });
 
-$app->get('/documentation/', function() use ($app) {
-    $document = new Document('documentation');
+$app->get('/{section}/', function($section) use ($app) {
+    $document = new Document($section);
     return $app['twig']->render($document->getLayout() . '.twig',
         array(
             "html"  => $document->getText(),
@@ -79,8 +79,18 @@ $app->get('/documentation/', function() use ($app) {
     );
 });
 
-$app->get('/documentation/{slug}.html', function($slug) use ($app) {
-    $document = new Document('documentation/'.$app->escape($slug));
+$app->get('/{section}/{slug}.html', function($section, $slug) use ($app) {
+    $document = new Document($section.'/'.$app->escape($slug));
+    return $app['twig']->render($document->getLayout() . '.twig',
+        array(
+            "html"  => $document->getText(),
+            "title"  => $document->getTitle(),
+        )
+    );
+});
+
+$app->get('/{section}/{subsection}/{slug}.html', function($section, $subsection, $slug) use ($app) {
+    $document = new Document($section .'/'. $subsection  . '/' . $app->escape($slug));
     return $app['twig']->render($document->getLayout() . '.twig',
         array(
             "html"  => $document->getText(),

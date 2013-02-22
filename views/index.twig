@@ -1,4 +1,4 @@
-{% extends "layout_main.twig" %}
+{% extends "main.twig" %}
 
 {% block content %}
 <p><img src='/images/propel-logo.png' alt='Propel logo' /></p>
@@ -7,41 +7,40 @@
 
 <p>Propel это объектно-реляционный маппер (ORM) с открытым исходным кодом для PHP5. Он позволяет взаимодействовать с вашей базой данных используя набор объектов, предоставляющих простое API для сохранения и получения данных.</p>
 
-<h3 id='why'>Why?</h3>
+<h3 id='why'>Почему?</h3>
 
-<p>Propel gives you, the web application developer, the tools to work with databases in the same way you work with other classes and objects in PHP.</p>
+<p>Propel предоставляет вам, разработчику веб-приложений, инструменты для работы с базой данных так же, как если бы вы работали с другими классами и объектами в PHP.</p>
 
 <ul>
-    <li>Propel gives your database a well-defined API.</li>
-
-    <li>Propel uses the PHP5 OO standards &#8211; Exceptions, autoloading, Iterators and friends.</li>
+    <li>Propel предоставляет вам хорошо описаный API для работы с базой данных.</li>
+    <li>Propel использует стандарты Объектно Ориентированного программирования на PHP5 &#8211; Исключения (Exceptions), автозагрузку (autoloading), Итераторы (Iterators) и friends (другие плюшки?)</li>
 </ul>
 
-<p>Propel makes database coding fun again.</p>
+<p>Propel опять делает работу с базой приятной.</p>
 
-<h3 id='show_me'>Show Me!</h3>
+<h3 id='show_me'>Покажи мне!</h3>
 <pre><code>&lt;php
-  $book = BookQuery::create()->findPK(123); // retrieve a record from a database
-  $book->setName('Don\'t be Hax0red!'); // modify. Don't worry about escaping
-  $book->save(); // persist the modification to the database
+  $book = BookQuery::create()->findPK(123); // получаем запись из базы
+  $book->setName('Don\'t be Hax0red!'); // изменяем. Не паримся на счет экранирования
+  $book->save(); // сохраняем изменения в базе
 
-  $books = BookQuery::create()  // retrieve all books...
-    ->filterByPublishYear(2009) // ... published in 2009
-    ->orderByTitle()            // ... ordered by title
-    ->joinWith('Book.Author')   // ... with their author
+  $books = BookQuery::create()  // получаем все книги...
+    ->filterByPublishYear(2009) // ... опубликованные в 2009
+    ->orderByTitle()            // ... отсортированные по заголовку
+    ->joinWith('Book.Author')   // ... вместе с авторами
     ->find();
 
   foreach($books as $book) {
     echo  $book->getAuthor()->getFullName();
   }</code></pre>
 
-<h3 id='get_it'>Get It!</h3>
+<h3 id='get_it'>Получаем!</h3>
 
-<p>Fork the Propel GitHub repository at <a href='http://github.com/propelorm/propel'>http://github.com/propelorm/propel</a>.</p>
+<p>Форкаем репозиторий Propel на GitHub по адресу <a href='http://github.com/propelorm/propel'>http://github.com/propelorm/propel</a>.</p>
 
-<h3 id='dive_in'>Dive In!</h3>
+<h3 id='dive_in'>Погружаемся!</h3>
 
-<p>Propel uses PDO as an abstraction layer, and code generation to remove the burden of runtime introspection. Therefore Propel is <em>fast</em>.</p>
+<p>Propel использует PDO в качестве абстрактного слоя, и генерацию кода, чтобы избавиться от лишней нагрузки во время динамической обработки. Вот почему Propel <em>быстрый</em>.</p>
 
 <p>Propel implements all the key concepts of mature ORM layers: the ActiveRecord pattern, validators, behaviors, table inheritance, reverse engineering an existing database, nested sets, nested transactions, lazy loading, LOB, you name it.</p>
 

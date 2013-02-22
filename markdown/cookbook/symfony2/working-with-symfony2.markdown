@@ -10,14 +10,12 @@ If you are interested to work with Propel2 with Symfony2, you should consider us
 
 The recommended way to install this bundle is to rely on [Composer](http://getcomposer.org):
 
-{% highlight javascript %}
-{
-    "require": {
-        // ...
-        "propel/propel-bundle": "1.1.*"
+    {
+        "require": {
+            // ...
+            "propel/propel-bundle": "1.1.*"
+        }
     }
-}
-{% endhighlight %}
 
 Alternatively, you can use Git, SVN, Git submodules, or the Symfony vendor management (deps file):
 
@@ -41,35 +39,30 @@ Instead of doing this manually, you can use the Symfony vendor management via th
 If you are using a Symfony2 2.x.x version (actually, a version which is not 2.1 or above),
 be sure to deps.lock the PropelBundle to a commit on the 2.0 branch, which does not use the Bridge
 
-
 The second step is to register this bundle in the `AppKernel` class:
 
-{% highlight php %}
-<?php
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new Propel\PropelBundle\PropelBundle(),
-    );
+    <?php
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Propel\PropelBundle\PropelBundle(),
+        );
 
-    // ...
-}
-{% endhighlight %}
+        // ...
+    }
 
 Don't forget to register the PropelBundle namespace in `app/autoload.php` if you are not using Composer:
 
-{% highlight php %}
-<?php
-$loader->registerNamespaces(array(
-    // ...
-    'Propel' => __DIR__.'/../vendor/bundles',
-));
-$loader->registerPrefixes(array(
-    // ...
-    'Phing'  => __DIR__.'/../vendor/phing/classes/phing',
-));
-{% endhighlight %}
+    <?php
+    $loader->registerNamespaces(array(
+        // ...
+        'Propel' => __DIR__.'/../vendor/bundles',
+    ));
+    $loader->registerPrefixes(array(
+        // ...
+        'Phing'  => __DIR__.'/../vendor/phing/classes/phing',
+    ));
 
 You are almost ready, the next steps are:
 
@@ -89,23 +82,21 @@ Note that the `--force` option is needed to actually execute the SQL statements.
 
 Congratulations! You're done; just use the Model classes as any other class in Symfony2:
 
-{% highlight php %}
-<?php
+    <?php
 
-class HelloController extends Controller
-{
-    public function indexAction($name)
+    class HelloController extends Controller
     {
-        $author = new \Acme\DemoBundle\Model\Author();
-        $author->setFirstName($name);
-        $author->save();
+        public function indexAction($name)
+        {
+            $author = new \Acme\DemoBundle\Model\Author();
+            $author->setFirstName($name);
+            $author->save();
 
-        return $this->render('AcmeDemoBundle:Hello:index.html.twig', array(
-            'name' => $name, 'author' => $author)
-        );
+            return $this->render('AcmeDemoBundle:Hello:index.html.twig', array(
+                'name' => $name, 'author' => $author)
+            );
+        }
     }
-}
-{% endhighlight %}
 
 ## Bundle Inheritance ##
 
@@ -127,12 +118,10 @@ In order to use Propel, you have to configure few parameters in your `app/config
 
 If you are **not** using Composer, add this configuration:
 
-{% highlight yaml %}
-# in app/config/config.yml
-propel:
-    path:       "%kernel.root_dir%/../vendor/propel"
-    phing_path: "%kernel.root_dir%/../vendor/phing"
-{% endhighlight %}
+    # in app/config/config.yml
+    propel:
+        path:       "%kernel.root_dir%/../vendor/propel"
+        phing_path: "%kernel.root_dir%/../vendor/phing"
 
 Now, you can configure your application.
 
@@ -141,33 +130,29 @@ Now, you can configure your application.
 
 If you have just one database connection, your configuration will look like as following:
 
-{% highlight yaml %}
-# app/config/config*.yml
-propel:
-    dbal:
-        driver:               mysql
-        user:                 root
-        password:             null
-        dsn:                  mysql:host=localhost;dbname=test;charset=UTF8
-        options:              {}
-        attributes:           {}
-{% endhighlight %}
+    # app/config/config*.yml
+    propel:
+        dbal:
+            driver:               mysql
+            user:                 root
+            password:             null
+            dsn:                  mysql:host=localhost;dbname=test;charset=UTF8
+            options:              {}
+            attributes:           {}
 
 The recommended way to fill in these information is to use parameters:
 
 
-{% highlight yaml %}
-# app/config/config*.yml
-# define the parameters in app/config/parameters.yml
-propel:
-    dbal:
-        driver:               %database_driver%
-        user:                 %database_user%
-        password:             %database_password%
-        dsn:                  %database_driver%:host=%database_host%;dbname=%database_name%;charset=UTF8
-        options:              {}
-        attributes:           {}
-{% endhighlight %}
+    # app/config/config*.yml
+    # define the parameters in app/config/parameters.yml
+    propel:
+        dbal:
+            driver:               %database_driver%
+            user:                 %database_user%
+            password:             %database_password%
+            dsn:                  %database_driver%:host=%database_host%;dbname=%database_name%;charset=UTF8
+            options:              {}
+            attributes:           {}
 
 
 #### Configure Multiple Connection ####
@@ -175,66 +160,60 @@ propel:
 If you have more than one connection, or want to use a named connection, the configuration
 will look like:
 
-{% highlight yaml %}
-# app/config/config*.yml
-propel:
-    dbal:
-        default_connection:         conn1
-        connections:
-            conn1:
-                driver:             mysql
-                user:               root
-                password:           null
-                dsn:                mysql:host=localhost;dbname=db1
-            conn2:
-                driver:             mysql
-                user:               root
-                password:           null
-                dsn:                mysql:host=localhost;dbname=db2
-{% endhighlight %}
+    # app/config/config*.yml
+    propel:
+        dbal:
+            default_connection:         conn1
+            connections:
+                conn1:
+                    driver:             mysql
+                    user:               root
+                    password:           null
+                    dsn:                mysql:host=localhost;dbname=db1
+                conn2:
+                    driver:             mysql
+                    user:               root
+                    password:           null
+                    dsn:                mysql:host=localhost;dbname=db2
 
 
 #### Configure Master/Slaves ####
 
 You can also configure Master/Slaves:
 
-{% highlight yaml %}
-# app/config/config*.yml
-propel:
-    dbal:
-        default_connection:         default
-        connections:
-            default:
-                driver:             mysql
-                user:               root
-                password:           null
-                dsn:                mysql:host=localhost;dbname=master
-                slaves:
-                    slave_1:
-                        user:       root
-                        password:   null
-                        dsn:        mysql:host=localhost;dbname=slave_1
-{% endhighlight %}
+    # app/config/config*.yml
+    propel:
+        dbal:
+            default_connection:         default
+            connections:
+                default:
+                    driver:             mysql
+                    user:               root
+                    password:           null
+                    dsn:                mysql:host=localhost;dbname=master
+                    slaves:
+                        slave_1:
+                            user:       root
+                            password:   null
+                            dsn:        mysql:host=localhost;dbname=slave_1
 
 
 #### Attributes, Options, Settings ####
 
-{% highlight yaml %}
-# app/config/config*.yml
-propel:
-    dbal:
-        default_connection:         default
-        connections:
-            default:
-                # ...
-                options:
-                    ATTR_PERSISTENT: false
-                attributes:
-                    ATTR_EMULATE_PREPARES: true
-                settings:
-                    charset:        { value: UTF8 }
-                    queries:        { query: 'INSERT INTO BAR ('hey', 'there')' }
-{% endhighlight %}
+    # app/config/config*.yml
+    propel:
+        dbal:
+            default_connection:         default
+            connections:
+                default:
+                    # ...
+                    options:
+                        ATTR_PERSISTENT: false
+                    attributes:
+                        ATTR_EMULATE_PREPARES: true
+                    settings:
+                        charset:        { value: UTF8 }
+                        queries:        { query: 'INSERT INTO BAR ('hey', 'there')' }
 
 `options`, `attributes` and `settings` are parts of the runtime configuration. See [Runtime Configuration File](http://www.propelorm.org/reference/runtime-configuration.html) documentation for more explanation.
 
@@ -243,11 +222,9 @@ propel:
 
 You can disable the logging by changing the `logging` parameter value:
 
-{% highlight yaml %}
-# in app/config/config.yml
-propel:
-    logging:    %kernel.debug%
-{% endhighlight %}
+    # in app/config/config.yml
+    propel:
+        logging:    %kernel.debug%
 
 ### Propel Configuration ###
 
@@ -259,29 +236,27 @@ on **build properties**, see the section below.
 
 By default the PropelBundle is configured with the default parameters:
 
-{% highlight ini %}
-# Enable full use of the DateTime class.
-# Setting this to true means that getter methods for date/time/timestamp
-# columns will return a DateTime object when the default format is empty.
-propel.useDateTimeClass = true
+    # Enable full use of the DateTime class.
+    # Setting this to true means that getter methods for date/time/timestamp
+    # columns will return a DateTime object when the default format is empty.
+    propel.useDateTimeClass = true
 
-# Specify a custom DateTime subclass that you wish to have Propel use
-# for temporal values.
-propel.dateTimeClass = DateTime
+    # Specify a custom DateTime subclass that you wish to have Propel use
+    # for temporal values.
+    propel.dateTimeClass = DateTime
 
-# These are the default formats that will be used when fetching values from
-# temporal columns in Propel. You can always specify these when calling the
-# methods directly, but for methods like getByName() it is nice to change
-# the defaults.
-# To have these methods return DateTime objects instead, you should set these
-# to empty values
-propel.defaultTimeStampFormat =
-propel.defaultTimeFormat =
-propel.defaultDateFormat =
+    # These are the default formats that will be used when fetching values from
+    # temporal columns in Propel. You can always specify these when calling the
+    # methods directly, but for methods like getByName() it is nice to change
+    # the defaults.
+    # To have these methods return DateTime objects instead, you should set these
+    # to empty values
+    propel.defaultTimeStampFormat =
+    propel.defaultTimeFormat =
+    propel.defaultDateFormat =
 
-# A better Pluralizer
-propel.builder.pluralizer.class = builder.util.StandardEnglishPluralizer
-{% endhighlight %}
+    # A better Pluralizer
+    propel.builder.pluralizer.class = builder.util.StandardEnglishPluralizer
 
 
 #### Build properties ####
@@ -289,14 +264,12 @@ propel.builder.pluralizer.class = builder.util.StandardEnglishPluralizer
 You can define _build properties_ by creating a `propel.ini` file in `app/config` like below, but you can also follow
 the Symfony2 convention by adding build properties in `app/config/config.yml`:
 
-{% highlight yaml %}
-# app/config/config.yml
-propel:
-    build_properties:
-        xxxxx.xxxx.xxxxx:   XXXX
-        xxxxx.xxxx.xxxxx:   XXXX
-        // ...
-{% endhighlight %}
+    # app/config/config.yml
+    propel:
+        build_properties:
+            xxxxx.xxxx.xxxxx:   XXXX
+            xxxxx.xxxx.xxxxx:   XXXX
+            // ...
 
 
 #### Behaviors ####
